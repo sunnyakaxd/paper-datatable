@@ -912,7 +912,6 @@ A [material design implementation of a data table](https://www.google.com/design
 				},
 
 				_cellTapped: function(ev){
-
 					var PolymerEvent = Polymer.dom(ev);
 					var path = PolymerEvent.path;
 					var cell;
@@ -941,7 +940,9 @@ A [material design implementation of a data table](https://www.google.com/design
 					var triggeredEvent = this.fire('row-tap', {key: rowModel.rowKey, item: this._getByKey(rowModel.rowKey), originalEvent: ev}, {cancelable: true});
 					if(!triggeredEvent.defaultPrevented && !dialogInitialized){
 						if(path[0].nodeName.toLowerCase() == 'td' || (ev.model.column && !ev.model.column.editable)){
-							this._toggleSelection(rowModel.rowKey);
+							if(path[0].id=='checkboxContainer'){
+								this._toggleSelection(rowModel.rowKey);
+							}
 							ev.preventDefault();
 						}
 					}else{
